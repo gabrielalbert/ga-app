@@ -207,7 +207,8 @@ const exportToJson = () => {
                   value={editForm.qaType}
                   onChange={handleChange}
                 >
-                  <option value="FillIn">Fill In</option>
+                  <option value="">-Select-</option>
+                  <option value="Fill In">Fill In</option>
                   <option value="Match">Match</option>                  
                 </select>
               ) : (
