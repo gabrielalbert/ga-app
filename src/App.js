@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import About from './pages/About';
+import FillIn from './pages/FillIn';
+import Match from './pages/Match';
+import './components/Navbar.css';
+import FillInBlankWords from './pages/FillInBlankWords';
+import MatchWords from './pages/MatchWords';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />        
+        <Route path="/fillin" element={<FillIn />} />        
+        <Route path="/match" element={<Match />} />        
+        <Route path="/fill-in-blank" element={<FillInBlankWords />} /> 
+        <Route path="/drag-drop-match" element={<MatchWords />} /> 
+      </Routes>
+    </Router>
   );
 }
 

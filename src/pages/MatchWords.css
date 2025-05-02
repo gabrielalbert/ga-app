@@ -1,0 +1,122 @@
+
+.match-words-page {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  padding: 2rem;
+}
+
+.game-container {
+  max-width: 800px;
+  width: 100%;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.game-title {
+  text-align: center;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.game-content {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.questions-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.answers-section {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.drop-zone-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.question-word {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  width: 120px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.answer-dropzone {
+  border: 2px dashed var(--secondary-color);
+  padding: 1rem 2rem;
+  min-height: 50px;
+  width: 120px;
+  text-align: center;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.answer-dropzone.hovered {
+  background-color: rgba(255, 165, 0, 0.1);
+}
+
+.answer-dropzone.matched {
+  border-style: solid;
+  background-color: var(--success-color);
+  color: white;
+}
+
+.word-card {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  border-radius: 5px;
+  cursor: move;
+  width: 120px;
+  text-align: center;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.word-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.word-card.dragging {
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .game-content {
+    flex-direction: column;
+  }
+  
+  .questions-section,
+  .answers-section {
+    width: 100%;
+  }
+  
+  .drop-zone-container {
+    justify-content: center;
+  }
+  
+  .word-card {
+    width: 100%;
+  }
+}

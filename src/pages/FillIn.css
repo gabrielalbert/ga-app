@@ -1,0 +1,52 @@
+
+  .tile-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .tile {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+
+  .tile:hover {
+    transform: translateY(-5px);
+  box-shadow: 0 0 10px #234db5, /* glow outside */
+  0 0 20px #234db5; /* stronger outer glow */
+  background-color: #234db5;/*rgb(227, 39, 114);*/ 
+  
+  }
+
+  .tile-content {
+    padding: 1.5rem;
+  }
+
+  .tile-content h3 {
+    margin: 0 0 1rem;
+    color: #333;
+  }
+  .tile-content p {
+    color: #666;
+    line-height: 1.5;
+  }
+  .tile-content:hover h3 {
+    color: white;    
+  }
+  .tile-content:hover p {
+    color: rgba(255, 255, 255, 0.847);    
+  }
+
+  @media (max-width: 768px) {
+    .tile-container {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+    }
+  }
+

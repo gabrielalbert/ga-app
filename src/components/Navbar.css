@@ -1,0 +1,118 @@
+.navbar {
+  background-color:transparent;  
+  padding: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Light border */
+  box-shadow: 0 0 10px rgba(44, 39, 227, 0.674), /* glow outside */
+              0 0 20px rgba(44, 39, 227, 0.674); /* stronger outer glow */
+              
+  backdrop-filter: blur(10px); /* optional: nice blur effect behind the navbar */  
+  top: 0;
+  left: 0;
+  z-index: 1000; /* keep it above everything */  
+  padding: 1rem;    
+  background-size: cover; /* scale the image to cover the div completely */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat; /* prevent the image from repeating */
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-logo img:hover {
+  text-shadow: 0 0 5px #234db5, /* glow inside */
+              0 0 10px #234db5, /* glow outside */
+              0 0 20px #234db5; /* stronger outer glow */  
+  box-shadow: 0 0 10px #234db5, /* glow outside */
+              0 0 20px #234db5; /* stronger outer glow */
+              background-color: #234db5;/*rgb(227, 39, 114);*/
+  transition: color 0.3s ease;
+  border-radius: 20px;
+}
+.nav-menu {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  /*color:#aebae7; /* rgb(99 212 217 / 72%);*/
+  text-shadow: 0 0 5px #234db5, /* glow inside */
+              0 0 10px #234db5, /* glow outside */
+              0 0 20px #234db5; /* stronger outer glow */  
+  box-shadow: 0 0 10px #234db5, /* glow outside */
+              0 0 20px #234db5; /* stronger outer glow */
+              background-color: #234db5;/*rgb(227, 39, 114);*/
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+.hamburger:hover{
+  box-shadow: 0 0 10px #234db5, /* glow outside */
+              0 0 20px #234db5; /* stronger outer glow */
+              background-color: #234db5;/*rgb(227, 39, 114);*/
+}
+  .nav-menu {
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    gap: 0;
+    flex-direction: column;
+    background-color: #234cb5a5;    
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+  }
+
+  .nav-menu.active {
+    left: 0;
+  }
+
+  .nav-item {
+    padding: 1rem 0;
+  }
+}
