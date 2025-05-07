@@ -5,7 +5,11 @@ import '../pages/FillIn.css';
 const Tile = ({item }) => {
   const navigate = useNavigate();
   const handleTileClick = (item) => {
-    navigate('/drag-drop-match');
+    let itemsheetName=JSON.stringify(item.sheetName);
+    let itempageTitle=JSON.stringify(item.pageTitle);   
+    console.log("itemsheetName", itemsheetName);
+    console.log("itempageTitle", itempageTitle); 
+    navigate('/drag-drop-match',{ state: { sn: itemsheetName,pt: itempageTitle } });    
   };
   return (
     <div className="tile">      

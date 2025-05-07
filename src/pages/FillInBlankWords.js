@@ -1,44 +1,41 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import '../pages/FillInBlankWords.css';
 
-const initialData = [
-  {
-    question: "A ____ is worth a thousand words.",
-    answer: "Picture"
-  },
-  {
-    question: "Don’t put all your ____ in one basket.",
-    answer: "Eggs"
-  },
-  {
-    question: "Let the ____ out of the bag.",
-    answer: "Cat"
-  },
-  {
-    question: "You can’t judge a ____ by its cover.",
-    answer: "Book"
-  },
-  {
-    question: "You can lead a ____ to water, but you can’t make it drink.",
-    answer: "Horse"
-  }
-];
 
 function shuffleArray(array) {
   return [...array].sort(() => Math.random() - 0.5);
 }
 
 function FillInBlankWords() {
+  const location = useLocation();
+  const { sheetName, pageTitle } = location.state || {};
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
   const [droppedItems, setDroppedItems] = useState({});
+  const [sheetname, setSheetname] = useState('');
+  const [pagetitle, setPagetitle] = useState('');
 
   useEffect(() => {
+    setPagetitle(JSON.parse(pageTitle));
+    setSheetname(JSON.parse(sheetName));
+    console.log("sheetName", sheetname);
+    console.log("pageTitle", pagetitle);
+    const rawData = localStorage.getItem('qabankdata');
+    if (!rawData) {
+      return;
+    }
+    const parsedData = JSON.parse(rawData) || [];
+    
+    console.log("parsedData", parsedData);
+    const initialData = parsedData[sheetname]||[];
+    console.log("initialData", initialData);
+    
     const shuffledQuestions = shuffleArray(initialData);
     const shuffledAnswers = shuffleArray(initialData.map(item => item.answer));
     setQuestions(shuffledQuestions);
     setAnswers(shuffledAnswers);
-  }, []);
+  }, [ sheetname, pagetitle]);
 
   const handleDragStart = (e, answer) => {
     e.dataTransfer.setData("text/plain", answer);
@@ -67,7 +64,7 @@ function FillInBlankWords() {
 
 <div className="page">
     <div className='page-container'>  
-  <h1>Fill in the blanks topics</h1>
+  <h1>{pagetitle}</h1>
       
         <div className="word-bank">         
           {answers.map((answer, index) => (

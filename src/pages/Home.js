@@ -4,14 +4,14 @@ import '../pages/Home.css';
 
 const Home = () => {
   
-  const [data, setData] = useState([]);/*[{id:0, sheetName: '', pageTitle: '', qaType:'',actions:''}]);*/
-  
+  const [data, setData] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef(null);
 
   // Get table headers dynamically from the first object's keys
-  const headers = Object.keys({id:0, sheetName: '', pageTitle: '', qaType:'',actions:''});  
-  const [excelData, setExcelData] = useState({});
+  const headers = Object.keys({id:0, sheetName: '', pageTitle: '', qaType:'',actions:''}); 
+  
   const [fileName, setFileName] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
@@ -19,11 +19,9 @@ const Home = () => {
     const fetchData = async () => {
       const savedData = localStorage.getItem('qabank');
       setData(savedData ? JSON.parse(savedData) : []);
-
     };
     fetchData();
   }, []);
-
   
   const handleFile = (file) => {
     if (file) {
@@ -76,9 +74,27 @@ const handleSave = () => {
   setData(updatedData);
   setEditingId(null);
 };
+// Notification component
+const Notification = ({ message, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000); // Auto-close after 3 seconds
 
-const exportToJson = () => {
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div style={styles.notification}>
+      <span>{message}</span>
+      <button style={styles.closeButton} onClick={onClose}>×</button>
+    </div>
+  );
+};
+const exportToJson= ()=> { 
+  setShowNotification(true);
   localStorage.setItem('qabank', JSON.stringify(data));
+   //alert('Data saved');
 };
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
@@ -108,8 +124,7 @@ const exportToJson = () => {
       });
       setData(allSheets);
       console.log('allSheets', allSheets);
-      localStorage.setItem('qabankdata', JSON.stringify(allSheetsData));
-      //setExcelData(allSheetsData);
+      localStorage.setItem('qabankdata', JSON.stringify(allSheetsData));      
     };
 
     reader.readAsArrayBuffer(file);
@@ -177,7 +192,7 @@ const exportToJson = () => {
         <tbody>
         {(data.length>0) && (data?.map((item) => (
           <tr key={item.id}>
-            <td>
+            <td data-label="sheetName">
               {editingId === item.id ? (
                 <input
                   type="text"
@@ -188,7 +203,7 @@ const exportToJson = () => {
                 item.sheetName
               )}
             </td>
-            <td>
+            <td data-label="pageTitle">
               {editingId === item.id ? (
                 <input
                   type="text"
@@ -200,7 +215,7 @@ const exportToJson = () => {
                 item.pageTitle
               )}
             </td>
-            <td>
+            <td data-label="qaType">
               {editingId === item.id ? (
                 <select
                   name="qaType"
@@ -208,7 +223,7 @@ const exportToJson = () => {
                   onChange={handleChange}
                 >
                   <option value="">-Select-</option>
-                  <option value="Fill In">Fill In</option>
+                  <option value="FillIn">Fill In</option>
                   <option value="Match">Match</option>                  
                 </select>
               ) : (
@@ -231,8 +246,14 @@ const exportToJson = () => {
               <button onClick={exportToJson} className="export-button">
                 Save Question Bank
               </button>
-            </div>)}   
-      
+            </div>          
+          )}   
+      {showNotification && (
+        <Notification
+          message="Data saved successfully!"
+          onClose={() => setShowNotification(false)}
+        />
+      )}
     </div>
       </div>
     </div>
@@ -240,6 +261,30 @@ const exportToJson = () => {
 };
 
 const styles = {
+  notification: {
+    position: 'fixed',
+    top: '20px',
+    right: '20px',    
+    color: 'white',
+    padding: '15px 25px',
+    borderRadius: '4px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '15px',
+    boxShadow: "0 0 10px #234db5, 0 0 20px #234db5",
+    backgroundColor: '#234db5',
+    
+    animation: 'slideIn 0.3s ease-out'
+  },
+  closeButton: {
+    background: 'none',
+    border: 'none',
+    color: 'white',
+    fontSize: '20px',
+    cursor: 'pointer',
+    padding: '0',
+    marginLeft: '10px'
+  },
   container: {
     maxWidth: '500px',
     margin: '2rem auto',

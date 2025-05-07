@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
+
 import '../pages/FillIn.css';
 // Tile component
-const Tile = ({item }) => {
+const Tile = ({item}) => {
   const navigate = useNavigate();
-  const handleTileClick = (item) => {
-    navigate('/fill-in-blank');
+  const handleTileClick = (item) => {    
+    let itemsheetName=JSON.stringify(item.sheetName);
+    let itempageTitle=JSON.stringify(item.pageTitle);    
+    navigate('/fill-in-blank',{ state: { sheetName: itemsheetName,pageTitle: itempageTitle } });
   };
   return (
     <div className="tile">      
@@ -55,7 +58,7 @@ const FillIn = () => {
        {(storedData.length>0) && storedData?.map((tile) => (
         <Tile
           key={tile.id}
-          item={tile}                          
+          item={tile}                                    
         />
       ))}
     </div>

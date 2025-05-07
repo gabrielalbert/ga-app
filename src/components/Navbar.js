@@ -29,7 +29,9 @@ const Navbar = () => {
           <Link to="/match" className="nav-item" onClick={() => setIsOpen(false)}>
           <TbDragDrop /> Match Word
           </Link>
-               
+          {/* <Link to="/tile-grid" className="nav-item" onClick={() => setIsOpen(false)}>
+           Tile Grid
+          </Link> */}
         </div>
 
         <div className="hamburger" onClick={toggleMenu}>
